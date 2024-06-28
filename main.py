@@ -2,8 +2,7 @@ from dotenv import load_dotenv
 from transformers import pipeline
 import openai
 import os
-import json
-from llama_index.core import SimpleDirectoryReader, KnowledgeGraphIndex, ServiceContext, Settings
+from llama_index.core import SimpleDirectoryReader, KnowledgeGraphIndex, ServiceContext, StorageContext
 from llama_index.llms.openai import OpenAI
 
 def load_environment_variables():
@@ -65,13 +64,11 @@ def create_knowledge_graph_index(documents, triplet_extractor):
     service_context = ServiceContext.from_defaults(llm=OpenAI(model_name="gpt-3.5-turbo"), chunk_size=256)
     return KnowledgeGraphIndex.from_documents(documents, kg_triplet_extract_fn=lambda x: extract_triplets(x, triplet_extractor), service_context=service_context)
 
-def save_index_to_file(index, file_path):
+def save_index(index, file_path):
     try:
-        index_dict = index.export()
-        with open(file_path, "w") as f:
-            json.dump(index_dict, f)
+        index.storage_context.persist(persist_dir=file_path)
     except Exception as e:
-        raise RuntimeError("Failed to save index to file: " + str(e))
+        raise RuntimeError("Failed to save index: " + str(e))
 
 def query_index(index, query):
     try:
@@ -86,7 +83,7 @@ def main():
         triplet_extractor = initialize_triplet_extractor()
         documents = load_documents("./paul_graham_essay.txt")
         index = create_knowledge_graph_index(documents, triplet_extractor)
-        save_index_to_file(index, "index.json")
+        save_index(index, "./")
 
         queries = ["What happened to the author after YC?", "What happened to the author at Interleaf?"]
         for query in queries:

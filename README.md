@@ -34,11 +34,13 @@ This project uses a combination of OpenAI and Babelscape's rebel-large model to 
 
 #### Example Queries
 
-**Q:** "What happened to the author after YC?"
-**A:** "The author's life after YC remains undisclosed or unspecified."
+**Q:** "What happened to the author after YC?"  
+
+**A:** "The author decided to hand over YC to someone else after his mother had a stroke and he realized he was ready to make a change. He asked Jessica if she wanted to be president, but she declined. They then decided to recruit Sam Altman to take over. Eventually, Sam agreed to become the president of YC, leading to a complete changing of the guard. The author and another founder retired, while Jessica and another partner became ordinary partners."
 
 **Q:** "What happened to the author at Interleaf?"
-**A:** "The author did not establish any relationships at Interleaf."
+
+**A:** "The author was determined to be the Microsoft Word, not the Interleaf."
 
 #### Notes
 
